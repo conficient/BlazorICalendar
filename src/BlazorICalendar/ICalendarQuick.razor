@@ -1,0 +1,40 @@
+﻿@using Ical.Net
+@using Ical.Net.CalendarComponents
+@using Ical.Net.DataTypes
+@using Ical.Net.Serialization
+
+@if(IsValid)
+{
+    <a href=@dataUrl download=@Filename >@ChildContent</a>
+}
+@code
+{
+    [Parameter] public DateTime? Start { get; set; }
+
+    [Parameter] public DateTime? End { get; set; }
+
+    [Parameter] public string Summary { get; set; }
+
+    [Parameter] public string Description { get; set; }
+
+    [Parameter] public RenderFragment ChildContent {get;set;}
+
+    [Parameter] public string Filename { get; set; } = "Calendar.ics";
+
+    string dataUrl => GetDataUrl();
+
+    string GetDataUrl()
+    {
+        var cal = new Calendar();
+        cal.Events.Add(new CalendarEvent()
+            {
+                Start = new CalDateTime(Start.Value),
+                End = new CalDateTime(End.Value),
+                Description = Description, 
+                Summary = Summary
+            });
+        return Helper.GetDataUrl(cal);
+    }
+
+    bool IsValid => (Start.HasValue && End.HasValue);
+}

@@ -1,0 +1,17 @@
+﻿@using Ical.Net
+@using Ical.Net.Serialization
+@* requires Ical.Net library from NUGET *@
+@if(Calendar != null)
+{
+    <a href=@dataUrl download=@Filename >@ChildContent</a>
+}
+@code
+{
+    [Parameter] public Calendar Calendar { get; set; }
+
+    [Parameter] public RenderFragment ChildContent {get;set;}
+
+    [Parameter] public string Filename { get; set; } = "Calendar.ics";
+
+    string dataUrl => Helper.GetDataUrl(Calendar);
+}

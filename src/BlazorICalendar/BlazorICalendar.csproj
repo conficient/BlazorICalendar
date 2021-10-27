@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<RazorLangVersion>3.0</RazorLangVersion>
+		<Authors>conficient</Authors>
+		<Company>conficient</Company>
+		<Description>Blazor library for creating ICalendar links</Description>
+		<Copyright>(c) conficient 2021</Copyright>
+		<PackageProjectUrl>https://github.com/conficient/BlazorICalendar</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/conficient/BlazorICalendar</RepositoryUrl>
+		<PackageTags>blazor;icalendar</PackageTags>
+		<PackageReleaseNotes>Initial version</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Ical.Net" Version="4.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.20" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,77 @@
+﻿@using BlazorICalendar
+@using Ical.Net
+@using Ical.Net.CalendarComponents
+@using Ical.Net.DataTypes
+@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h2>ICalendar Demo</h2>
+
+<p>Demonstrates the simple use of the ICalendar component.</p>
+<p>In the code, create a <code>Calendar</code> instance. Set the filename and create the link,e.g.</p>
+<ICalendar Calendar=@calendar1 Filename="first.ics">Add to my Calendar</ICalendar>
+<pre>
+    &lt;ICalendar Calendar=@calendar1 Filename=&quot;first.ics&quot;&gt;Add to my Calendar&lt;/ICalendar&gt;
+</pre>
+<h5>Second example</h5>
+<p>The calendar link won't appear unless the <code>Calendar</code> property is set. Click the button to set it.</p>
+@if (calendar2 == null)
+{
+    <button class="btn btn-info btn-sm" @onclick=CreateCal2>Set <code>calendar2</code></button>
+}
+else
+{
+    <p>Now <code>calendar2 is set</code></p>
+    <ICalendar Calendar=@calendar2 Filename="second.ics"><span class="oi oi-calendar" aria-hidden="true"></span> Add to Calendar</ICalendar>
+}
+<hr />
+<h4>ICalendarQuick</h4>
+<p>This version just has Start, End and Description parameters, for creating a quick calendar link.</p>
+<ICalendarQuick Start="d1" End="d2" Filename="quick.ics" Description="quick appointment 2 hrs from now" Summary="Quick Calendar Example">Quick Calendar</ICalendarQuick>
+@code
+{
+    DateTime d1 = DateTime.Now.AddHours(2);
+    DateTime d2 = DateTime.Now.AddHours(3);
+
+    Calendar? calendar1;
+    Calendar? calendar2;
+
+    protected override void OnInitialized()
+    {
+        CreateCal1();
+    }
+
+    private void CreateCal1()
+    {
+        var start = DateTime.Now.AddHours(1);
+        var end = start.AddHours(1);
+
+        var e = new CalendarEvent
+            {
+                Start = new CalDateTime(start),
+                End = new CalDateTime(end),
+                Description = "test1"
+            };
+
+        calendar1 = new Calendar();
+        calendar1.Events.Add(e);
+    }
+
+    private void CreateCal2()
+    {
+        var d3 = DateTime.Today.AddDays(1).AddHours(8); // 8am tomorrow
+        var d4 = d3.AddHours(2);
+
+        var e2 = new CalendarEvent
+            {
+                Start = new CalDateTime(d3),
+                End = new CalDateTime(d4),
+                Description = "test2"
+            };
+
+        calendar2 = new Calendar();
+        calendar2.Events.Add(e2);
+    }
+
+}
